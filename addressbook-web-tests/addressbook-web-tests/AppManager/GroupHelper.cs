@@ -15,6 +15,16 @@ namespace WebAddressbookTests
         public GroupHelper(ApplicationManager manager) : base(manager)
         {}
 
+        public GroupHelper Create(GroupData group)
+        {
+            manager.Navigator.GoToGroupsPage();
+            InitGroupCreation();
+            FillGroupForms(group);
+            SubmitGroupCreation();
+            ReturnToGroupsPage();
+            return this;
+        }
+
         public GroupHelper Remove(int p)
         {
             manager.Navigator.GoToGroupsPage();
@@ -24,13 +34,26 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public GroupHelper Create(GroupData group)
+        public GroupHelper Modify(int p, GroupData newData)
         {
             manager.Navigator.GoToGroupsPage();
-            InitGroupCreation();
-            FillGroupForms(group);
-            SubmitGroupCreation();
+            SelectGroup(p);
+            InitGroupModification();
+            FillGroupForms(newData);
+            SubmitGroupModification();
             ReturnToGroupsPage();
+            return this;
+        }
+
+        private GroupHelper SubmitGroupModification()
+        {
+            driver.FindElement(By.Name("update")).Click();
+            return this;
+        }
+
+        private GroupHelper InitGroupModification()
+        {
+            driver.FindElement(By.Name("edit")).Click();
             return this;
         }
 

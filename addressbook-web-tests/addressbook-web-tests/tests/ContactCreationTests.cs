@@ -14,6 +14,7 @@ namespace WebAddressbookTests
         {
             ContactData contact = new ContactData("asder");
             contact.Lastname = "qwerty";
+
             app.Contacts.Create(contact);
             app.Navigator.ReturnToHomePage();
         }
