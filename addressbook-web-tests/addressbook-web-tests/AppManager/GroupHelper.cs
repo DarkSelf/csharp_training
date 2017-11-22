@@ -28,6 +28,13 @@ namespace WebAddressbookTests
         public GroupHelper Remove(int p)
         {
             manager.Navigator.GoToGroupsPage();
+            if (!IsGroupPresent())
+            {
+                GroupData group = new GroupData("qwe");
+                group.Header = "rty";
+                group.Footer = "uio";
+                Create(group);
+            }
             SelectGroup(p);
             RemoveGroup();
             ReturnToGroupsPage();
@@ -37,12 +44,24 @@ namespace WebAddressbookTests
         public GroupHelper Modify(int p, GroupData newData)
         {
             manager.Navigator.GoToGroupsPage();
+            if (!IsGroupPresent())
+            {
+                GroupData group = new GroupData("qwe");
+                group.Header = "rty";
+                group.Footer = "uio";
+                Create(group);
+            }
             SelectGroup(p);
             InitGroupModification();
             FillGroupForms(newData);
             SubmitGroupModification();
             ReturnToGroupsPage();
             return this;
+        }
+
+        private bool IsGroupPresent()
+        {
+            return IsElementPresent((By.ClassName("group")));
         }
 
         private GroupHelper SubmitGroupModification()
@@ -65,14 +84,12 @@ namespace WebAddressbookTests
 
         public GroupHelper FillGroupForms(GroupData group)
         {
-            driver.FindElement(By.Name("group_name")).Clear();
-            driver.FindElement(By.Name("group_name")).SendKeys(group.Name);
-            driver.FindElement(By.Name("group_header")).Clear();
-            driver.FindElement(By.Name("group_header")).SendKeys(group.Header);
-            driver.FindElement(By.Name("group_footer")).Clear();
-            driver.FindElement(By.Name("group_footer")).SendKeys(group.Footer);
+            Type(By.Name("group_name"), group.Name);
+            Type(By.Name("group_header"), group.Header);
+            Type(By.Name("group_footer"), group.Footer);
             return this;
         }
+
 
         public GroupHelper SubmitGroupCreation()
         {

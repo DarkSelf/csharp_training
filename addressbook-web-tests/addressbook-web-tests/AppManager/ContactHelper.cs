@@ -18,11 +18,22 @@ namespace WebAddressbookTests
 
         public ContactHelper Remove(int p)
         {
+            manager.Navigator.GoToHomePage();
+            if (!IsContactPresent())
+            {
+                ContactData contact = new ContactData("asder");
+                contact.Lastname = "qwerty";
+                Create(contact);
+            }
             SelectContact(p);
             RemoveContact();
             return this;
         }
 
+        public bool IsContactPresent()
+        {
+            return IsElementPresent((By.Name("entry")));
+        }
 
         public ContactHelper RemoveContact()
         {
@@ -45,6 +56,13 @@ namespace WebAddressbookTests
 
         public ContactHelper Modify(ContactData newData)
         {
+            manager.Navigator.GoToHomePage();
+            if (!IsContactPresent())
+            {
+                ContactData contact = new ContactData("asder");
+                contact.Lastname = "qwerty";
+                Create(contact);
+            }
             InitContactModification();
             FillContactForms(newData);
             SubmitContactModification();
@@ -69,21 +87,26 @@ namespace WebAddressbookTests
                 GoToContactCreationPage();
                 FillContactForms(contact);
                 SubmitContactCreation();
+                GoToHomePage();
                 return this;
         }
 
         public ContactHelper FillContactForms(ContactData contact)
         {
-            driver.FindElement(By.Name("firstname")).Clear();
-            driver.FindElement(By.Name("firstname")).SendKeys(contact.Firstname);
-            driver.FindElement(By.Name("lastname")).Clear();
-            driver.FindElement(By.Name("lastname")).SendKeys(contact.Lastname);
+            Type(By.Name("firstname"), contact.Firstname);
+            Type(By.Name("lastname"), contact.Lastname);
             return this;
         }
 
         public ContactHelper SubmitContactCreation()
         {
             driver.FindElement(By.CssSelector("input[type=\"submit\"]")).Click();
+            return this;
+        }
+
+        public ContactHelper GoToHomePage()
+        {
+            driver.FindElement(By.LinkText("home page")).Click();
             return this;
         }
 
