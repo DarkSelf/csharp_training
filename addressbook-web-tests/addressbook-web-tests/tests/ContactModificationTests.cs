@@ -16,6 +16,8 @@ namespace WebAddressbookTests
         {
             ContactData newData = new ContactData("poi");
             newData.Lastname = "lkj";
+
+            app.Contacts.CreateContactIfContactListEmpty();
             app.Contacts.Modify(newData);
         }
     }

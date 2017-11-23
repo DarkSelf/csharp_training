@@ -27,21 +27,13 @@ namespace WebAddressbookTests
 
         public GroupHelper Remove(int p)
         {
-            manager.Navigator.GoToGroupsPage();
-            if (!IsGroupPresent())
-            {
-                GroupData group = new GroupData("qwe");
-                group.Header = "rty";
-                group.Footer = "uio";
-                Create(group);
-            }
             SelectGroup(p);
             RemoveGroup();
             ReturnToGroupsPage();
             return this;
         }
 
-        public GroupHelper Modify(int p, GroupData newData)
+        public GroupHelper CreateGroupIsGroupListEmpty()
         {
             manager.Navigator.GoToGroupsPage();
             if (!IsGroupPresent())
@@ -51,6 +43,11 @@ namespace WebAddressbookTests
                 group.Footer = "uio";
                 Create(group);
             }
+            return this;
+        }
+
+        public GroupHelper Modify(int p, GroupData newData)
+        {
             SelectGroup(p);
             InitGroupModification();
             FillGroupForms(newData);

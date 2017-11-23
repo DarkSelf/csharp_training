@@ -18,15 +18,21 @@ namespace WebAddressbookTests
 
         public ContactHelper Remove(int p)
         {
+            SelectContact(p);
+            RemoveContact();
+            return this;
+        }
+
+        public ContactHelper CreateContactIfContactListEmpty()
+        {
             manager.Navigator.GoToHomePage();
+
             if (!IsContactPresent())
             {
                 ContactData contact = new ContactData("asder");
                 contact.Lastname = "qwerty";
                 Create(contact);
             }
-            SelectContact(p);
-            RemoveContact();
             return this;
         }
 
@@ -56,13 +62,6 @@ namespace WebAddressbookTests
 
         public ContactHelper Modify(ContactData newData)
         {
-            manager.Navigator.GoToHomePage();
-            if (!IsContactPresent())
-            {
-                ContactData contact = new ContactData("asder");
-                contact.Lastname = "qwerty";
-                Create(contact);
-            }
             InitContactModification();
             FillContactForms(newData);
             SubmitContactModification();
