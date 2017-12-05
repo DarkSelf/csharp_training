@@ -15,7 +15,7 @@ namespace WebAddressbookTests
         public void ContactModificationTest()
         {
             ContactData newData = new ContactData("poi");
-            newData.Lastname = null;
+            newData.LastName = null;
 
             app.Contacts.CreateContactIfContactListEmpty();
             List<ContactData> oldContacts = app.Contacts.GetContactList();
@@ -26,7 +26,7 @@ namespace WebAddressbookTests
 
             List<ContactData> newContacts = app.Contacts.GetContactList();
 
-            oldContacts[0].Firstname = newData.Firstname;
+            oldContacts[0].FirstName = newData.FirstName;
             oldContacts.Sort();
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);

@@ -8,18 +8,17 @@ namespace WebAddressbookTests
 {
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
-        private string firstname;
-        private string lastname = "";
+        private string allPhones;
 
         public ContactData(string firstname)
         {
-            this.firstname = firstname;
+            FirstName = firstname;
         }
 
         public ContactData(string firstname, string lastname)
         {
-            this.firstname = firstname;
-            this.lastname = lastname;
+            FirstName = firstname;
+            LastName = lastname;
 
         }
 
@@ -33,12 +32,12 @@ namespace WebAddressbookTests
             {
                 return true;
             }
-            if (Firstname != other.Firstname)
+            if (FirstName != other.FirstName)
             {
             return false;
             }
 
-            return Lastname == other.Lastname;
+            return LastName == other.LastName;
         }
 
         public int CompareTo(ContactData other)
@@ -49,43 +48,60 @@ namespace WebAddressbookTests
             }
 
         
-            if (Firstname != other.Firstname)
+            if (FirstName != other.FirstName)
             {
-            return Firstname.CompareTo(other.Firstname);
+            return FirstName.CompareTo(other.FirstName);
             }
            
-            return Lastname.CompareTo(other.Lastname);
+            return LastName.CompareTo(other.LastName);
         }
 
 
 
         public override string ToString()
         {
-            return "firstname=" + Firstname + " " + "lastname=" + Lastname;
+            return "firstname=" + FirstName + " " + "lastname=" + LastName;
         }
 
-        public string Firstname
-        {
+        public string FirstName {get; set;}
+
+        public string LastName { get; set; }
+
+        public string Address { get; set; }
+
+        public string HomePhone { get; set; }
+
+        public string MobilePhone { get; set; }
+
+        public string WorkPhone { get; set; }
+
+
+        public string AllPhones {
             get
             {
-                return firstname;
+                if (allPhones != null)
+                {
+                    return allPhones;
+                }
+                else
+            
+                {
+                return (CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkPhone)).Trim();
+                }
             }
             set
             {
-                firstname = value;
+                allPhones = value;
             }
         }
 
-        public string Lastname
+        public string CleanUp(string phone)
         {
-            get
+            if (phone == null || phone == "")
             {
-                return lastname;
+                return "";
             }
-            set
-            {
-                lastname = value;
-            }
+            return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "")+ "\r\n";
         }
     }
 }
