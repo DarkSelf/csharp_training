@@ -35,6 +35,20 @@ namespace WebAddressbookTests
 
         }
 
+        public string GetContactInformationFromDetails(int index)
+        {
+            manager.Navigator.GoToHomePage();
+            OpenContactDetails(0);
+            IWebElement detailsList = driver.FindElement(By.Id("content"));
+
+
+            return detailsList.Text;
+
+
+        }
+
+
+
         public ContactData GetContactInformationFromEditForm(int index)
         {
             manager.Navigator.GoToHomePage();
@@ -146,6 +160,14 @@ namespace WebAddressbookTests
         {
             driver.FindElements(By.Name("entry"))[index]
                 .FindElements(By.TagName("td"))[7]
+                .FindElement(By.TagName("a")).Click();
+            return this;
+        }
+
+        public ContactHelper OpenContactDetails(int index)
+        {
+            driver.FindElements(By.Name("entry"))[index]
+                .FindElements(By.TagName("td"))[6]
                 .FindElement(By.TagName("a")).Click();
             return this;
         }
