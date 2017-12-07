@@ -82,6 +82,11 @@ namespace WebAddressbookTests
 
         public string WorkPhone { get; set; }
 
+        public string Email { get; set; }
+
+        public string Email2 { get; set; }
+
+        public string Email3 { get; set; }
 
         public string AllPhones {
             get
@@ -102,31 +107,6 @@ namespace WebAddressbookTests
             }
         }
 
-
-
-
-        //public string AllContactData
-        //{
-
-        //    get
-        //    {
-        //        if (allContactData != null)
-        //        {
-        //            return allContactData;
-        //        }
-        //        else
-
-        //        {
-        //            return (FirstName + " " + LastName + "\r\n" + Address + "\r\n" + "\r\n" + "H: " + HomePhone + "\r\n" + "M: " + MobilePhone + "\r\n" + "W: " + WorkPhone);
-        //        }
-        //    }
-        //    set
-        //    {
-        //        allContactData = value;
-        //    }
-        //}
-
-
         public string AllContactData
         {
             get
@@ -135,15 +115,21 @@ namespace WebAddressbookTests
 
                 if (!String.IsNullOrEmpty(FirstName))
                 {
-                    InfoContacts += FirstName + " ";
+                    InfoContacts += FirstName += " ";
                 }
+
                 if (!String.IsNullOrEmpty(LastName))
                 {
                     InfoContacts += LastName + "\r\n";
                 }
                 if (!String.IsNullOrEmpty(Address))
                 {
-                    InfoContacts += Address + "\r\n\r\n";
+                    InfoContacts += Address + "\r\n";
+                }
+
+                if (FirstName != null || LastName != null || Address != null)
+                {
+                    InfoContacts += "\r\n";
                 }
             
                 if (!String.IsNullOrEmpty(HomePhone))
@@ -158,7 +144,27 @@ namespace WebAddressbookTests
                 {
                     InfoContacts += "W: " + WorkPhone + "\r\n";
                 }
-                            
+
+                if (HomePhone != null || MobilePhone != null || WorkPhone != null)
+                {
+                    InfoContacts += "\r\n";
+                }
+
+
+                if (!String.IsNullOrEmpty(Email))
+                {
+                    InfoContacts += Email + "\r\n";
+                }
+                if (!String.IsNullOrEmpty(Email2))
+                {
+                    InfoContacts += Email2 + "\r\n";
+                }
+                if (!String.IsNullOrEmpty(Email3))
+                {
+                    InfoContacts += Email3 + "\r\n";
+                }
+
+
                 string InfoContactsCleanUp = InfoContacts.Trim();
                 return InfoContactsCleanUp;
             }
