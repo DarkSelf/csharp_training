@@ -133,18 +133,19 @@ namespace WebAddressbookTests
             {
                 string InfoContacts = "";
 
-                if (FirstName != null)
+                if (!String.IsNullOrEmpty(FirstName))
                 {
                     InfoContacts += FirstName + " ";
                 }
-                if (LastName != null )
+                if (!String.IsNullOrEmpty(LastName))
                 {
                     InfoContacts += LastName + "\r\n";
                 }
-                if (Address != null)
+                if (!String.IsNullOrEmpty(Address))
                 {
                     InfoContacts += Address + "\r\n\r\n";
                 }
+            
                 if (!String.IsNullOrEmpty(HomePhone))
                 {
                     InfoContacts += "H: " + HomePhone + "\r\n";
