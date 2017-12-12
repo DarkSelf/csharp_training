@@ -57,7 +57,6 @@ namespace addressbook_test_data_generators
                     contacts.Add(new ContactData(TestBase.GenerateRandomString(15))
                     {
                         LastName = TestBase.GenerateRandomString(15),
-                        Address = TestBase.GenerateRandomString(15)
                     });
                 }
                 if (format == "xml")
