@@ -13,7 +13,9 @@ namespace WebAddressbookTests
 
         public string allContactData;
 
-
+        public ContactData()
+        {
+        }
 
         public ContactData(string firstname)
         {
@@ -24,7 +26,6 @@ namespace WebAddressbookTests
         {
             FirstName = firstname;
             LastName = lastname;
-
         }
 
 
@@ -67,7 +68,7 @@ namespace WebAddressbookTests
 
         public override string ToString()
         {
-            return "firstname=" + FirstName + " " + "lastname=" + LastName;
+            return "firstname=" + FirstName + " " + "lastname=" + LastName + " " + "address=" + Address;
         }
 
         public string FirstName { get; set; }
