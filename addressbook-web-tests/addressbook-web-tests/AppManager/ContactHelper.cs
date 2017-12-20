@@ -35,6 +35,7 @@ namespace WebAddressbookTests
 
         }
 
+
         public string GetContactInformationFromDetails(int index)
         {
             manager.Navigator.GoToHomePage();
@@ -43,8 +44,6 @@ namespace WebAddressbookTests
 
 
             return detailsList.Text;
-
-
         }
 
 
@@ -80,6 +79,15 @@ namespace WebAddressbookTests
         public ContactHelper Remove(int p)
         {
             SelectContact(p);
+            RemoveContact();
+            GoToHomePage();
+            return this;
+        }
+
+        public ContactHelper Remove(ContactData contact)
+        {
+
+            SelectContact(contact.Id);
             RemoveContact();
             GoToHomePage();
             return this;
@@ -141,6 +149,13 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContactHelper SelectContact(string id)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='"+ id +"'])")).Click();
+
+            return this;
+        }
+
         public ContactHelper GoToContactCreationPage()
         {
             driver.FindElement(By.LinkText("add new")).Click();
@@ -150,6 +165,15 @@ namespace WebAddressbookTests
         public ContactHelper Modify(ContactData newData)
         {
             InitContactModification(0);
+            FillContactForms(newData);
+            SubmitContactModification();
+            GoToHomePage();
+            return this;
+        }
+
+        public ContactHelper Modify(ContactData contact, ContactData newData)
+        {
+            InitContactModification(contact.Id);
             FillContactForms(newData);
             SubmitContactModification();
             GoToHomePage();
@@ -168,6 +192,12 @@ namespace WebAddressbookTests
             driver.FindElements(By.Name("entry"))[index]
                 .FindElements(By.TagName("td"))[7]
                 .FindElement(By.TagName("a")).Click();
+            return this;
+        }
+
+        public ContactHelper InitContactModification(string id)
+        {
+            driver.FindElement(By.XPath("//a[@href='edit.php?id=" + id + "']")).Click();
             return this;
         }
 

@@ -3,6 +3,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Collections.Generic;
+using System.Linq;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
@@ -12,7 +13,7 @@ using NUnit.Framework;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ContactCreationTests : AuthTestBase
+    public class ContactCreationTests : ContactTestBase
     {
         public static IEnumerable<ContactData> RandomContactDataProvider()
         {
@@ -46,17 +47,15 @@ namespace WebAddressbookTests
         [Test, TestCaseSource("ContactDataFromJsonFile")]
         public void ContactCreationTest(ContactData contact)
         {
-            List<ContactData> oldContacts = app.Contacts.GetContactList();
+            List<ContactData> oldContacts = ContactData.GetAll();
 
             app.Contacts.Create(contact);
 
             Assert.AreEqual(oldContacts.Count + 1, app.Contacts.GetContactCount());
 
-            List<ContactData> newContacts = app.Contacts.GetContactList();
+            List<ContactData> newContacts = ContactData.GetAll();
 
             oldContacts.Add(contact);
-            oldContacts.Sort();
-            newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);
 
 

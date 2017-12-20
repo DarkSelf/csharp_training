@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LinqToDB.Mapping;
 
 namespace WebAddressbookTests
 {
+    [Table(Name = "group_list")]
    public class GroupData : IEquatable<GroupData>, IComparable<GroupData>
     {
         private string name;
-        private string header = "";
-        private string footer = "";
-
-        public GroupData (string name)
-        {
-            this.name = name;
-        }
 
         public GroupData()
         {
+        }
+
+        public GroupData(string name)
+        {
+            Name = name;
         }
 
         public bool Equals(GroupData other)
@@ -53,38 +53,27 @@ namespace WebAddressbookTests
             return Name.CompareTo(other.Name);
         }
 
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-            set
-            {
-                name = value;
-            }
-        }
+        [Column (Name = "group_name")]
 
-        public string Header
+        public string Name { get; set; }
+
+        //[Column (Name = "group_header")]
+
+        public string Header { get; set; }
+
+        //[Column (Name = "group_footer")]
+
+        public string Footer { get; set; }
+
+        [Column (Name = "group_id"), PrimaryKey, Identity]
+
+        public string Id { get; set; }
+
+        public static List<GroupData> GetAll()
         {
-            get
+            using (AddressBookDB db = new AddressBookDB())
             {
-                return header;
-            }
-            set
-            {
-                header = value;
-            }
-        }
-        public string Footer
-        {
-            get
-            {
-                return footer;
-            }
-            set
-            {
-                footer = value;
+                return (from g in db.Groups select g).ToList();
             }
         }
     }
