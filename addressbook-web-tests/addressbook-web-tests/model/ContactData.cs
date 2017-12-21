@@ -9,6 +9,7 @@ using LinqToDB.Mapping;
 namespace WebAddressbookTests
 {
     [Table(Name = "addressbook")]
+
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         public string allPhones;
@@ -117,14 +118,6 @@ namespace WebAddressbookTests
 
         public string Deprecated { get; set; }
 
-        public static List<ContactData> GetAll()
-        {
-            using (AddressBookDB db = new AddressBookDB())
-            {
-                return (from c in db.Contacts.Where(x => x.Deprecated == "0000 - 00 - 00 00:00:00") select c).ToList();
-            }
-        }
-
         public string AllPhones {
             get
             {
@@ -217,6 +210,14 @@ namespace WebAddressbookTests
             return Regex.Replace(phone,"[ -()]", "" )+ "\r\n";
             }
 
+        public static List<ContactData> GetAll()
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                return (from c in db.Contacts.Where(x => x.Deprecated == "0000 - 00 - 00 00:00:00") select c).ToList();
+            }
+        }
 
+        
     }
 }
