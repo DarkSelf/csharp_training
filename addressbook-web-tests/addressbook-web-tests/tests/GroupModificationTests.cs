@@ -19,7 +19,7 @@ namespace WebAddressbookTests
             newData.Header = null;
             newData.Footer = null;
 
-            app.Groups.CreateGroupIsGroupListEmpty();
+            app.Groups.CreateGroupIfGroupListEmpty();
             List<GroupData> oldGroups = GroupData.GetAll();
 
             GroupData toBeModified = oldGroups[0];

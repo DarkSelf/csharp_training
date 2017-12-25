@@ -13,10 +13,15 @@ namespace WebAddressbookTests
 
         public void ContactRemoveFromGroupTest()
         {
+            app.Contacts.CreateContactIfContactListEmpty();
+            app.Groups.CreateGroupIfGroupListEmpty();
             GroupData group = GroupData.GetAll()[0];
-            List<ContactData> oldList = group.GetContacts();
+            ContactData newContact = ContactData.GetAll()[0];
+            app.Contacts.AddContactToGroupIfGroupEmpty(newContact, group);
 
+            List<ContactData> oldList = group.GetContacts();
             ContactData contact = group.GetContacts().First();
+
 
             app.Contacts.RemoveContactFromGroup(contact, group);
 

@@ -68,7 +68,7 @@ namespace WebAddressbookTests
 
         }
 
-        public GroupHelper CreateGroupIsGroupListEmpty()
+        public GroupHelper CreateGroupIfGroupListEmpty()
         {
             manager.Navigator.GoToGroupsPage();
             if (!IsGroupPresent())

@@ -35,15 +35,49 @@ namespace WebAddressbookTests
 
         }
 
+        //internal void AddContactToGroupIfContactInAllGroups(ContactData contact)
+        //{
+        //    List<GroupData> groupsInContact = contact.GetGroups();
+        //    List<GroupData> groups = GroupData.GetAll();
+        //    groupsInContact.Sort();
+        //    groups.Sort();
+        //    if (groupsInContact == groups)
+        //    {
+        //        Create(contact);
+        //    }
+        //}
+
+        //internal void AddContactToGroupIfGroupPresentInContact (ContactData contact, GroupData group)
+        //{
+        //    List<GroupData> groupsInContact = contact.GetGroups();
+            
+        //    if (groupsInContact.Contains(group))
+        //    {
+        //        Create(contact);
+        //    }
+        //}
+
         internal void RemoveContactFromGroup(ContactData contact, GroupData group)
         {
             manager.Navigator.GoToHomePage();
-            SelectGroupForContactRemoving(group.Name);
+            SelectGroup(group.Name);
             SelectContact(contact.Id);
             InitContactRemoval();
             new WebDriverWait(driver, TimeSpan.FromSeconds(10))
                 .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
         }
+
+        internal void AddContactToGroupIfGroupEmpty(ContactData contact, GroupData group)
+        {
+            manager.Navigator.GoToHomePage();
+            SelectGroup(group.Name);
+            IsContactPresent();
+            if (!IsContactPresent())
+            {
+                AddContactToGroup(contact, group);
+            }
+        }
+
 
         private void InitContactRemoval()
         {
@@ -71,7 +105,7 @@ namespace WebAddressbookTests
             new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(name);
         }
 
-        private void SelectGroupForContactRemoving(string name)
+        private void SelectGroup(string name)
         {
             new SelectElement(driver.FindElement(By.Name("group"))).SelectByText(name);
         }

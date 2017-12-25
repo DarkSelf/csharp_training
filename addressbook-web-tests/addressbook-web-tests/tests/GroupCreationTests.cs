@@ -92,9 +92,14 @@ namespace WebAddressbookTests
             //end = DateTime.Now;
             //System.Console.Out.WriteLine(end.Subtract(start));
 
-            foreach (ContactData contact in GroupData.GetAll()[0].GetContacts())
+            //foreach (ContactData contact in GroupData.GetAll()[0].GetContacts())
+            //{
+            //    System.Console.Out.WriteLine(contact);
+            //}
+
+            foreach (GroupData group in GroupData.GetAll())
             {
-                System.Console.Out.WriteLine(contact);
+                System.Console.Out.WriteLine(group);
             }
         }
     }
