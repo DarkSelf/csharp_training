@@ -35,27 +35,21 @@ namespace WebAddressbookTests
 
         }
 
-        //internal void AddContactToGroupIfContactInAllGroups(ContactData contact)
-        //{
-        //    List<GroupData> groupsInContact = contact.GetGroups();
-        //    List<GroupData> groups = GroupData.GetAll();
-        //    groupsInContact.Sort();
-        //    groups.Sort();
-        //    if (groupsInContact == groups)
-        //    {
-        //        Create(contact);
-        //    }
-        //}
+        internal void AddContactToGroupIfContactInAllGroups()
+        {
+            ContactData firstContact = ContactData.GetAll().First();
+            List<GroupData> groupsInContact = firstContact.GetGroups();
+            List<GroupData> groups = GroupData.GetAll();
+            groupsInContact.Sort();
+            groups.Sort();
+            if (groupsInContact == groups)
+            {
+                ContactData contact = new ContactData("asder");
+                contact.LastName = "qwerty";
+                Create(contact);
+            }
+        }
 
-        //internal void AddContactToGroupIfGroupPresentInContact (ContactData contact, GroupData group)
-        //{
-        //    List<GroupData> groupsInContact = contact.GetGroups();
-            
-        //    if (groupsInContact.Contains(group))
-        //    {
-        //        Create(contact);
-        //    }
-        //}
 
         internal void RemoveContactFromGroup(ContactData contact, GroupData group)
         {

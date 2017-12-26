@@ -51,6 +51,11 @@ namespace WebAddressbookTests
             return LastName == other.LastName;
         }
 
+        public override int GetHashCode()
+        {
+            return FirstName.GetHashCode();
+        }
+
         public int CompareTo(ContactData other)
         {
             if (Object.ReferenceEquals(other, null))
