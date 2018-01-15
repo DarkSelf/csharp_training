@@ -11,6 +11,10 @@ namespace mantis_tests
         private string name;
         private string password;
 
+        public AccountData()
+        {
+        }
+
         public AccountData(string name, string password)
         {
             this.name = name;

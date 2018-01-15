@@ -13,17 +13,33 @@ namespace mantis_tests
     class ProjectRemovalTests : AuthTestBase
     {
 
+
         [Test]
 
         public void ProjectRemovalTest()
         {
-            List<ProjectData> oldProjects = app.Projects.GetProjectsList();
+            AccountData account = new AccountData()
+            {
+                Name = "administrator",
+                Password = "root"
+            };
+
+            ProjectData projectData = new ProjectData()
+            {
+                projectName = "ProjectForRemove"
+            };
+
+            app.Api.CreateProjectIfProjectListEmpty(account, projectData);
+
+            List<ProjectData> oldProjects = app.Api.GetAllProjects(account);
+
+
 
             app.Projects.Remove(0);
 
             Assert.AreEqual(oldProjects.Count - 1, app.Projects.GetProjectCount());
 
-            List<ProjectData> newProjects = app.Projects.GetProjectsList();
+            List<ProjectData> newProjects = app.Api.GetAllProjects(account);
             oldProjects.RemoveAt(0);
             oldProjects.Sort();
             newProjects.Sort();

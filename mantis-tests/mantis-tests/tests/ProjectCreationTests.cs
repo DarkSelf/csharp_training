@@ -32,14 +32,19 @@ namespace mantis_tests
 
         public void ProjectCreationTest(ProjectData project)
         {
-            List<ProjectData> oldProjects = app.Projects.GetProjectsList();
+            AccountData account = new AccountData()
+            {
+                Name = "administrator",
+                Password = "root"
+            };
 
-
+            List<ProjectData> oldProjects = app.Api.GetAllProjects(account);
+            
             app.Projects.Create(project);
 
             Assert.AreEqual(oldProjects.Count + 1, app.Projects.GetProjectCount());
 
-            List<ProjectData> newProjects = app.Projects.GetProjectsList();
+            List<ProjectData> newProjects = app.Api.GetAllProjects(account);
             oldProjects.Add(project);
             oldProjects.Sort();
             newProjects.Sort();
